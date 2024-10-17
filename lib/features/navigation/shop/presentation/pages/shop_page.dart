@@ -12,59 +12,57 @@ class ShopPage extends GetView<BlogsController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBarWidget(
-          backgroundImage: 'assets/Images/background_login2.jpg', // Đường dẫn hình ảnh nền AppBar
-          logo: Image.asset(
-            'assets/Images/Plant.png', // Đường dẫn logo
-            height: 120,
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.notifications, color: Colors.white),
-              onPressed: () {
-                // Xử lý sự kiện khi nhấn vào nút thông báo
-              },
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBarWidget(
+        backgroundImage: 'assets/Images/background_login2.jpg', // Đường dẫn hình ảnh nền AppBar
+        logo: Image.asset(
+          'assets/Images/Plant.png', // Đường dẫn logo
+          height: 120,
         ),
-        body: Container(
-          decoration: BoxDecoration(color: AppColors.backgroundColors),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  _buildItem(
-                    ImageAsset:
-                    'https://i.pinimg.com/736x/be/22/c4/be22c4323a5656b7ae47d24877714c14.jpg',
-                    name: 'THUỐC TRỪ CỎ TIỀN NẢY MẦM WEEDER 300',
-                    price: '100.000',
-                  ),
-                  SizedBox(height: 10,),
-                  _buildItem(
-                    ImageAsset:
-                    'https://i.pinimg.com/736x/be/22/c4/be22c4323a5656b7ae47d24877714c14.jpg',
-                    name: 'THUỐC TRỪ CỎ TIỀN NẢY MẦM WEEDER 300',
-                    price: '100.000',
-                  ),
-                  SizedBox(height: 10,),
-                  _buildItem(
-                    ImageAsset:
-                    'https://i.pinimg.com/736x/be/22/c4/be22c4323a5656b7ae47d24877714c14.jpg',
-                    name: 'THUỐC TRỪ CỎ TIỀN NẢY MẦM WEEDER 300',
-                    price: '100.000',
-                  ),
-                  SizedBox(height: 10,),
-                  _buildItem(
-                    ImageAsset:
-                    'https://i.pinimg.com/736x/be/22/c4/be22c4323a5656b7ae47d24877714c14.jpg',
-                    name: 'THUỐC TRỪ CỎ TIỀN NẢY MẦM WEEDER 300',
-                    price: '100.000',
-                  ),
-                ],
-              ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications, color: Colors.white),
+            onPressed: () {
+              // Xử lý sự kiện khi nhấn vào nút thông báo
+            },
+          ),
+        ],
+      ),
+      body: Container(
+        decoration: BoxDecoration(color: AppColors.backgroundColors),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                _buildItem(
+                  ImageAsset:
+                  'https://i.pinimg.com/736x/be/22/c4/be22c4323a5656b7ae47d24877714c14.jpg',
+                  name: 'THUỐC TRỪ CỎ TIỀN NẢY MẦM WEEDER 300',
+                  price: '100.000',
+                ),
+                SizedBox(height: 10,),
+                _buildItem(
+                  ImageAsset:
+                  'https://i.pinimg.com/736x/be/22/c4/be22c4323a5656b7ae47d24877714c14.jpg',
+                  name: 'THUỐC TRỪ CỎ TIỀN NẢY MẦM WEEDER 300',
+                  price: '100.000',
+                ),
+                SizedBox(height: 10,),
+                _buildItem(
+                  ImageAsset:
+                  'https://i.pinimg.com/736x/be/22/c4/be22c4323a5656b7ae47d24877714c14.jpg',
+                  name: 'THUỐC TRỪ CỎ TIỀN NẢY MẦM WEEDER 300',
+                  price: '100.000',
+                ),
+                SizedBox(height: 10,),
+                _buildItem(
+                  ImageAsset:
+                  'https://i.pinimg.com/736x/be/22/c4/be22c4323a5656b7ae47d24877714c14.jpg',
+                  name: 'THUỐC TRỪ CỎ TIỀN NẢY MẦM WEEDER 300',
+                  price: '100.000',
+                ),
+              ],
             ),
           ),
         ),

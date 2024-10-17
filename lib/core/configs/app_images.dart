@@ -27,4 +27,16 @@ class AppImages {
   static const String customInterface = 'assets/Images/tuyChinhGiaoDien.png';
   static const String logOut = 'assets/Images/dangXuat.png';
 
+  //categories
+  static const String tatca = 'assets/Images/garbage-bag.png';
+  static const String hatgiong = 'assets/Images/hatgiong2.png';
+  static const String thuoctrusau = 'assets/Images/thuoctrusau2.png';
+  static const String nongduoc = 'assets/Images/nongduoc2.png';
+  static const String phanbon = 'assets/Images/phanbon2.png';
+
+  //customInterface
+//customInterface
+  static const String iconCustomInterface1 = 'assets/Images/darkmode.png';
+  static const String iconCustomInterface2 = 'assets/Images/chooseColors.png';
+
 }

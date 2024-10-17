@@ -2,7 +2,6 @@ import 'package:agri_shop/core/configs/themes/app_colors.dart';
 import 'package:agri_shop/core/routers/routes.dart';
 import 'package:agri_shop/core/ui/text_input/widgets/app_bar/app_bar_widget.dart';
 import 'package:agri_shop/core/ui/text_input/widgets/text/text_widget.dart';
-import 'package:agri_shop/features/farming_technique/presentation/controller/farmingtechnique_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -50,7 +50,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             ),
             child: AppBar(
               backgroundColor: AppColors.appbarColors,
-              elevation: 0.0,
               centerTitle: centerTitle,
               title: logo != null
                   ? Center(child: logo) // Đặt logo ở giữa

@@ -9,8 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../../../../../core/ui/text_input/widgets/app_bar/app_bar_widget.dart';
 
 
@@ -119,7 +117,10 @@ class _BuildListProduct extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              CardProduct(),
+              InkWell(
+                onTap: () { Get.toNamed(Routes.product);},
+                child: CardProduct(),
+              ),
               CardProduct(),
               CardProduct(),
               CardProduct(),
@@ -152,7 +153,7 @@ class _BuildListProduct extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                  'https://i.pinimg.com/736x/5a/c7/73/5ac773a88f0451cf76db9b1794304985.jpg',
+                  'https://www.loctroi.vn/UploadFiles/HinhDaiDien/271022021434474_TRIO-CMB.jpg',
                 ),
                 fit: BoxFit.cover, // Đặt BoxFit.cover cho ảnh nền
               ),
@@ -215,7 +216,7 @@ class _BuildCategories extends StatelessWidget {
           _buildCatItems(title: "Kỹ thuật canh tác", urlIcon: AppImages.Icat_1,toPageUrl:Routes.farmingTechnique),
           _buildCatItems(title: "Sâu bệnh hại", urlIcon: AppImages.Icat_2, toPageUrl: Routes.pest),
           _buildCatItems(title: "Nhận diện AI", urlIcon: AppImages.Icat_3),
-          _buildCatItems(title: "Bài đăng cộng đồng", urlIcon: AppImages.Icat_4),
+          _buildCatItems(title: "Bài đăng cộng đồng", urlIcon: AppImages.Icat_4, toPageUrl:Routes.chatting),
         ],
       ),
     );

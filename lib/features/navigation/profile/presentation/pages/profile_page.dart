@@ -1,5 +1,6 @@
 import 'package:agri_shop/core/configs/app_images.dart';
 import 'package:agri_shop/core/configs/themes/app_colors.dart';
+import 'package:agri_shop/core/routers/routes.dart';
 import 'package:agri_shop/core/ui/text_input/widgets/text/text_widget.dart';
 import 'package:agri_shop/features/navigation/profile/presentation/controller/profile_controller.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,11 +43,23 @@ class ProfilePage extends GetView<ProfileController> {
     return Container(
           child: Column(
             children: [
-              rowItems(iconUrl: AppImages.editProfile, title: 'Chỉnh sửa thông tin cá nhân'),
+              InkWell(
+                onTap: (){
+                  Get.toNamed(Routes.editProfile);
+                },
+                  child: rowItems(iconUrl: AppImages.editProfile, title: 'Chỉnh sửa thông tin cá nhân')),
               SizedBox(height: 40),
-              rowItems(iconUrl: AppImages.changePassword, title: 'Thay đổi mật khẩu'),
+              InkWell(
+                onTap: (){
+                  Get.toNamed(Routes.changePasswd);
+                },
+                  child: rowItems(iconUrl: AppImages.changePassword, title: 'Thay đổi mật khẩu')),
               SizedBox(height: 40),
-              rowItems(iconUrl: AppImages.customInterface, title: 'Chỉnh sửa giao diện'),
+              InkWell(
+                onTap: (){
+                  Get.toNamed(Routes.customInterface);
+                },
+                  child: rowItems(iconUrl: AppImages.customInterface, title: 'Chỉnh sửa giao diện')),
               SizedBox(height: 40),
               InkWell(
                   onTap: (){

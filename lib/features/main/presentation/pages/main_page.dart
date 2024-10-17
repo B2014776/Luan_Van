@@ -27,31 +27,31 @@ class MainPage extends GetView<MainController> {
               ),
               navigationBarButtons: const <NavigationBarButton>[
                 NavigationBarButton(
-                  icon: Icons.home,
+                  icon: CupertinoIcons.house_fill,
                   backgroundGradient: LinearGradient(
                     colors: [Colors.green, Colors.white],
                   ),
                 ),
                 NavigationBarButton(
-                  icon: Icons.chat,
+                  icon: CupertinoIcons.circle_grid_3x3_fill,
                   backgroundGradient: LinearGradient(
                     colors: [Colors.green, Colors.white],
                   ),
                 ),
                 NavigationBarButton(
-                  icon: Icons.camera,
+                  icon: CupertinoIcons.camera_fill,
                   backgroundGradient: LinearGradient(
                     colors: [Colors.green, Colors.white],
                   ),
                 ),
                 NavigationBarButton(
-                  icon: Icons.card_giftcard,
+                  icon: CupertinoIcons.gift_alt_fill,
                   backgroundGradient: LinearGradient(
                     colors: [Colors.green, Colors.white],
                   ),
                 ),
                 NavigationBarButton(
-                  icon: Icons.person,
+                  icon: CupertinoIcons.person_fill,
                   backgroundGradient: LinearGradient(
                     colors: [Colors.green, Colors.white],
                   ),

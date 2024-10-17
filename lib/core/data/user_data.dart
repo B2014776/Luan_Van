@@ -39,6 +39,7 @@ class UserData {
   
   Future<Result<String>> callLogin ({required String userName, required String password})async{
     try{
+      print('-------------------start---------');
       var response = await dio.post("https://api-luan-v1.onrender.com/api/v1/users/login/",data: {
         "username": userName,
         "password": password
@@ -47,6 +48,7 @@ class UserData {
           headers: {"Content-Type": "application/json"},
         ),
       );
+      print("------------------${response.data}-----------------------------");
       if(response.statusCode== 200 ){
         return Result.success(response.data["access"]);
       }

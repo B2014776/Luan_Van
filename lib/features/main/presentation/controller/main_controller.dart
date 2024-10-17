@@ -1,3 +1,5 @@
+import 'package:agri_shop/features/list_product/di/product_list_binding.dart';
+import 'package:agri_shop/features/list_product/presentation/page/product_list_page.dart';
 import 'package:agri_shop/features/navigation/blogs/di/blogs_binding.dart';
 import 'package:agri_shop/features/navigation/blogs/presentation/pages/blogs_page.dart';
 import 'package:agri_shop/features/navigation/camera/di/camera_binding.dart';
@@ -16,7 +18,7 @@ class MainController extends GetxController {
 
   final List<String> pages = [
     '/home',
-    '/blogs',
+    '/listProduct',
     '/camera',
     '/shop',
     '/profile'
@@ -31,17 +33,17 @@ class MainController extends GetxController {
           binding: HomeBinding(),
           transition: Transition.fadeIn,
         );
-      case '/blogs':
+      case '/listProduct':
         return GetPageRoute(
           settings: settings,
-          page: () => const BlogsPage(),
-          binding: BlogsBinding(),
+          page: () => const ProductListPage(),
+          binding: ProductListBinding(),
           transition: Transition.fadeIn,
         );
       case '/camera':
         return GetPageRoute(
           settings: settings,
-          page: () => const CameraPage(),
+          page: () =>  CameraPage(),
           binding: CameraBinding(),
           transition: Transition.fadeIn,
         );

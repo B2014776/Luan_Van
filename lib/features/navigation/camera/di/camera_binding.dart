@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class CameraBinding  extends Bindings{
   @override
   void dependencies() {
-    Get.lazyPut(()=>CameraController());
+    Get.lazyPut(()=>CameraDetectionController());
   }
 
 }

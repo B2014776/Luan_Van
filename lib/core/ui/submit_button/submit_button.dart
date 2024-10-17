@@ -57,6 +57,7 @@ class ButtonWidget extends StatelessWidget {
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (leadingIcon != null) leadingIcon!,
               if (leadingIcon != null) const SizedBox(width: 10.0),

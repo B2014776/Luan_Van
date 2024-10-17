@@ -41,9 +41,9 @@ class LoginController extends GetxController {
 
     try {
 
-      emailController.text="Admin01";
+      emailController.text="Admin02";
 
-      passwordController.text="123456A@";
+      passwordController.text="@a123456";
 
       var result  = await UserData.login(userName: emailController.text.trim(), password: passwordController.text.trim());
 

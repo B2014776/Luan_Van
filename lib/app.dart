@@ -14,6 +14,8 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: Pages.initial,
+      // initialRoute: Routes.main,
+      // initialRoute: Routes.product,
       scrollBehavior: MyBehavior(),
       getPages: Pages.routes,
       initialBinding: AppBinding(),
