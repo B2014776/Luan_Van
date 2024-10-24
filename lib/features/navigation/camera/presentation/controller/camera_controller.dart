@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class CameraDetectionController extends GetxController {
   CameraController? cameraController;
@@ -22,7 +21,7 @@ class CameraDetectionController extends GetxController {
       cameras![0], // Sử dụng camera trước đầu tiên
       ResolutionPreset.high,
     );
-    await cameraController!.initialize();
+    await cameraController?.initialize();
     update(); // Cập nhật trạng thái sau khi khởi tạo camera
   }
 

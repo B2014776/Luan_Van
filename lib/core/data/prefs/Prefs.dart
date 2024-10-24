@@ -1,8 +1,8 @@
+// ignore: file_names
 import 'dart:convert';
 
 import 'package:agri_shop/core/configs/prefs_contants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class Prefs {
   // Initial shared preferences /
@@ -12,7 +12,7 @@ class Prefs {
   // Initial method String /
   Future<String> get(String key) async {
     final SharedPreferences prefs = await _prefs;
-    return json.decode(prefs.getString(key)!) ?? '';
+    return json.decode(prefs.getString(key) ?? "") ?? '';
   }
 
   Future<String> getObject(String key) async {
@@ -61,5 +61,4 @@ class Prefs {
     final SharedPreferences prefs = await _prefs;
     prefs.remove(PrefsConstants.token);
   }
-
 }
