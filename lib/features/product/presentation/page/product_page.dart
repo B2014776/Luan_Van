@@ -36,18 +36,6 @@ class ProductPage extends GetView<ProductController> {
       ),
       body: Stack(
         children: [
-          // Background
-          // Container(
-          //   width: double.infinity,
-          //   height: double.infinity,
-          //   decoration: const BoxDecoration(
-          //     image: DecorationImage(
-          //       image: AssetImage('assets/Images/background3.png'),
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          // ),
-          // Nội dung trang sản phẩm
           _bodyBuild(),
         ],
       ),

@@ -1,4 +1,3 @@
-import 'package:agri_shop/core/configs/app_dimens.dart';
 import 'package:agri_shop/core/configs/app_images.dart';
 import 'package:agri_shop/core/configs/themes/app_colors.dart';
 import 'package:agri_shop/core/routers/routes.dart';
@@ -10,20 +9,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../core/ui/text_input/widgets/app_bar/app_bar_widget.dart';
+import 'package:html/parser.dart' show parse;
 
 
-import 'package:carousel_slider/carousel_slider.dart';
+
 
 class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    // Gọi phương thức fetchData() để lấy dữ liệu thời tiết khi HomePage được xây dựng
+    controller.fetchData();
+
     return Scaffold(
       appBar: AppBarWidget(
         logo: Image.asset(
-          'assets/Images/logo2.png',
-          height: 50,
+          'assets/Images/Plant.png',
+          height: 120,
         ),
         actions: [
           IconButton(
@@ -36,13 +40,18 @@ class HomePage extends GetView<HomeController> {
       ),
       body: Container(
         decoration: const BoxDecoration(
-          color: AppColors.backgroundColors,
+          // color: AppColors.backgroundColors,
+          color: Colors.white
         ),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const _BuildClearance(),
-              const SizedBox(height: 20),
+              // Sử dụng Obx để theo dõi sự thay đổi của HomeController
+              Obx(() {
+                return controller.isLoading.value
+                    ? Center(child: CircularProgressIndicator())
+                    : _BuildClearance(); // Hiển thị thông tin thời tiết
+              }),
               const _BuildCategories(),
               const SizedBox(height: 20),
               buildImageSlider([
@@ -57,6 +66,14 @@ class HomePage extends GetView<HomeController> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Xử lý sự kiện khi nhấn vào nút
+          print("Floating Action Button Pressed");
+        },
+        backgroundColor: Colors.green, // Màu nền của nút
+        child: const Icon(Icons.add, color: Colors.white), // Biểu tượng bên trong nút
       ),
     );
   }
@@ -85,6 +102,7 @@ class HomePage extends GetView<HomeController> {
     );
   }
 }
+
 
 
 
@@ -216,7 +234,7 @@ class _BuildCategories extends StatelessWidget {
           _buildCatItems(title: "Kỹ thuật canh tác", urlIcon: AppImages.Icat_1,toPageUrl:Routes.farmingTechnique),
           _buildCatItems(title: "Sâu bệnh hại", urlIcon: AppImages.Icat_2, toPageUrl: Routes.pest),
           _buildCatItems(title: "Nhận diện AI", urlIcon: AppImages.Icat_3),
-          _buildCatItems(title: "Bài đăng cộng đồng", urlIcon: AppImages.Icat_4, toPageUrl:Routes.chatting),
+          _buildCatItems(title: "Liên hệ với cửa hàng", urlIcon: AppImages.Icat_4, toPageUrl:Routes.chatting),
         ],
       ),
     );
@@ -285,41 +303,153 @@ class _BuildCategories extends StatelessWidget {
     );
   }
 
+
+
 class _BuildClearance extends StatelessWidget {
-  const _BuildClearance();
+  const _BuildClearance({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Lấy HomeController từ GetX
+    final HomeController controller = Get.find<HomeController>();
+
+    // Lấy ngày tháng hiện tại
+    final date = DateTime.now();
+    final formattedDate = "${date.day}-${date.month}-${date.year}"; // Định dạng ngày
+
     return Container(
       decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("assets/Images/sky2.png"),
-          fit: BoxFit.cover,
-        ),
+          color: Colors.white
       ),
-      padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: EdgeInsets.fromLTRB(20, 20, 20, 30),
+      child: Column(
         children: [
-           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center, // Căn giữa theo chiều ngang
             children: [
-              TextWidget(text: "Cần Thơ, Việt Nam", size: 19,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center, // Căn giữa theo chiều ngang
+                children: [
+                  Icon(CupertinoIcons.map_pin_ellipse, color: Color(0xff3A3C8F), size: 24,),
+                  SizedBox(width: 10,),
+                  TextWidget(
+                    text: _getFormattedCityName(controller.weatherData['localtime']),
+                    size: 19,
+                    color: Color(0xff3A3C8F),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
               TextWidget(
-                text: '35°C',
-                size: 40,
-              )
+                text: formattedDate,
+                size: 15,
+                color: Color(0xff8986EF),
+              ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(right: Get.width * 0),
-            child: Image.asset(
-              AppImages.Isun,
-              width: 100,
+          SizedBox(
+            height: 90,
+            child: Stack(
+              alignment: Alignment.center, // Canh giữa các widget
+              children: [
+                Positioned(
+                  right: 40, // Điều chỉnh vị trí cho icon đám mây
+                  top: 7,
+                  child: Image.asset(
+                    AppImages.Isun, // Thay thế bằng icon đám mây
+                    width: 80, // Kích thước phù hợp để che một phần nhiệt độ
+                  ),
+                ),
+                Positioned(
+                  right: 100,
+                  child: TextWidget(
+                    text: '${controller.weatherData['current']?['temp_c'] ?? 'N/A'}°',
+                    size: 50,
+                    color: Color(0xff5157EB),
+                  ),
+                ),
+              ],
             ),
-          )
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(width: 10), // Khoảng cách giữa hai container
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xffE9E7FF).withOpacity(0.8), // Màu trắng với độ trong suốt 30%
+                    borderRadius: BorderRadius.circular(50), // Bo góc
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26, // Màu bóng
+                        offset: Offset(2, 2), // Vị trí bóng
+                        blurRadius: 5, // Độ mờ của bóng
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.fromLTRB(30, 15, 30, 15), // Padding bên trong
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center, // Căn giữa nội dung
+                        children: [
+                          Icon(CupertinoIcons.smoke, color: Color(0xff4C4DDB), size: 25,),
+                          TextWidget(
+                            text: '${controller.weatherData['current']?['temp_f'] ?? 'N/A'}°F',
+                            size: 15,
+                            color: Color(0xff4C4DDB),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center, // Căn giữa nội dung
+                        children: [
+                          Icon(CupertinoIcons.drop, color: Color(0xff4C4DDB), size: 25,),
+                          TextWidget(
+                            text: '${controller.weatherData['current']?['humidity'] ?? 'N/A'}%',
+                            size: 15,
+                            color: Color(0xff4C4DDB),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center, // Căn giữa nội dung
+                        children: [
+                          Icon(CupertinoIcons.wind_snow, color: Color(0xff4C4DDB), size: 25,),
+                          TextWidget(
+                            text: '${controller.weatherData['current']?['wind_kph'] ?? 'N/A'}m/h',
+                            size: 15,
+                            color: Color(0xff4C4DDB),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
+
+  String _getFormattedCityName(Map<String, dynamic>? location) {
+    if (location == null) return "Cần Thơ, Việt Nam"; // Giá trị mặc định
+    String cityName = location['name'] ?? "Cần Thơ"; // Lấy tên thành phố
+    // String countryName = location['country'] ?? "Việt Nam"; // Lấy tên quốc gia
+
+    // Giải mã tên thành phố nếu cần
+    cityName = cityName.replaceAll("Cáº§n ThÆ¡", "Cần Thơ");
+
+    return "$cityName"; // Trả về tên thành phố và quốc gia
+  }
+
+  String _decodeHtml(String htmlString) {
+    return parse(htmlString).documentElement?.text ?? htmlString; // Giải mã HTML entities
+  }
 }
+
+

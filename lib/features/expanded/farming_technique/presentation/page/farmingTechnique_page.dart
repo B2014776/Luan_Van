@@ -14,20 +14,23 @@ class FarmingtechniquePage extends GetView<FarmingtechniqueController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-        backgroundImage: 'assets/Images/background_login2.jpg', // Đường dẫn hình ảnh nền AppBar
-        logo: Image.asset(
-          'assets/Images/Plant.png', // Đường dẫn logo
-          height: 120,
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {
-              // Xử lý sự kiện khi nhấn vào nút thông báo
-            },
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(56.0), // Chiều cao của AppBar
+        child: Material(
+          elevation: 4, // Độ cao tạo bóng đổ của Material
+          shadowColor: Colors.black.withOpacity(0.8), // Màu của bóng đổ
+          child: AppBar(
+            title: Text(
+              'Kỹ thuật canh tác',
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+                color: AppColors.primary,
+              ),
+            ),
+            backgroundColor: Colors.white,
           ),
-        ],
+        ),
       ),
       body: Stack(
         children: [
@@ -67,38 +70,13 @@ class FarmingtechniquePage extends GetView<FarmingtechniqueController> {
             ),
             _vegetableItem(
                 ImageNetwork: 'https://i.pinimg.com/564x/1a/ff/3d/1aff3d86c0419f34531cf3f1d8e38983.jpg',
-                title: 'Cam sành',
+                title: 'Cam',
                 scientificName: 'Rutaceae'
             ),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/564x/1a/ff/3d/1aff3d86c0419f34531cf3f1d8e38983.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/564x/1a/ff/3d/1aff3d86c0419f34531cf3f1d8e38983.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/564x/1a/ff/3d/1aff3d86c0419f34531cf3f1d8e38983.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/564x/1a/ff/3d/1aff3d86c0419f34531cf3f1d8e38983.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),_vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/564x/1a/ff/3d/1aff3d86c0419f34531cf3f1d8e38983.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/564x/1a/ff/3d/1aff3d86c0419f34531cf3f1d8e38983.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
+
+
+
+
 
           ],
         ),

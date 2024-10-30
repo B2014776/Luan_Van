@@ -1,61 +1,82 @@
 import 'dart:convert';
 
-class Product {
+class ProductModel {
   final String id;
+  final List<ImageProduct> images;
   final String name;
-  final List<String> chemicalComposition;
+  final String chemicalComposition;
   final String safetyInstructions;
+  final String description;
   final String price;
   final int stock;
-  final List<ImageProduct> images;
+  final DateTime dateAdded;
+  final String productType;
 
-  Product({
+  ProductModel({
     required this.id,
+    required this.images,
     required this.name,
     required this.chemicalComposition,
     required this.safetyInstructions,
+    required this.description,
     required this.price,
     required this.stock,
-    required this.images,
+    required this.dateAdded,
+    required this.productType,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    var imagesFromJson = json['images'];
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    var imageList = json['images'] as List;
+    List<ImageProduct> images = imageList.map((i) => ImageProduct.fromJson(i)).toList();
+    String productType = getProductType(json['product_type']);
 
-    // Check if 'images' is a List or Map and process accordingly
-    List<ImageProduct> imageList = [];
-
-      imageList = imagesFromJson.map((i) => ImageProduct.fromJson(i)).toList();
-
-
-    return Product(
+    return ProductModel(
       id: json['id'],
-      name: json['name'],
-      chemicalComposition: List<String>.from(json['chemical_composition'] ?? []),
-      safetyInstructions: json['safety_instructions'] ?? '',
-      price: json['price'].toString(),
-      stock: json['stock'] ?? 0,
-      images: imageList,
+      images: images,
+      name: utf8.decode(json['name'].runes.toList()), // Giải mã chuỗi
+      chemicalComposition: utf8.decode(json['chemical_composition'].runes.toList()),
+      safetyInstructions: utf8.decode(json['safety_instructions'].runes.toList()),
+      description: utf8.decode(json['description'].runes.toList()),
+      price: json['price'],
+      stock: json['stock'],
+      dateAdded: DateTime.parse(json['date_added']),
+      productType: productType,
     );
+  }
+
+  static String getProductType(String id) {
+    switch (id) {
+      case "b4eeb7b9-9b52-4851-98fa-52c2b1cf486d":
+        return "Phân bón";
+      case "fc419c7a-0c38-4ba5-becb-88b89bb191dd":
+        return "Hữu cơ sinh học";
+      case "996f4cd0-5688-4d20-a1c2-da498b760272":
+        return "Nông dược";
+      default:
+        return "Không xác định"; // Giá trị mặc định nếu không khớp
+    }
   }
 }
 
 class ImageProduct {
   final String id;
-  final String imageUrl;
+  final String image;
   final String type;
+  final String product;
 
   ImageProduct({
     required this.id,
-    required this.imageUrl,
+    required this.image,
     required this.type,
+    required this.product,
   });
 
   factory ImageProduct.fromJson(Map<String, dynamic> json) {
     return ImageProduct(
       id: json['id'],
-      imageUrl: json['image'],
+      image: json['image'],
       type: json['type'],
+      product: json['product'], // Thêm trường product
     );
   }
 }

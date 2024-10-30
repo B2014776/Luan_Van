@@ -36,7 +36,7 @@ class MainController extends GetxController {
       case '/listProduct':
         return GetPageRoute(
           settings: settings,
-          page: () => const ProductListPage(),
+          page: () =>  ProductListPage(),
           binding: ProductListBinding(),
           transition: Transition.fadeIn,
         );

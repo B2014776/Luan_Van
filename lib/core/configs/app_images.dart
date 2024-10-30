@@ -6,7 +6,7 @@ class AppImages {
 
 
   static const String Isunny = "assets/Images/sunny.jpg";
-  static const String Isun = "assets/Images/sun.png";
+  static const String Isun = "assets/Images/icons8-cloud.gif";
   static const String Icat_1 = "assets/Images/kythuatcanhtac.png";
   static const String Icat_2 = "assets/Images/saubenhhai.png";
   static const String Icat_3 = "assets/Images/nhandienai.png";

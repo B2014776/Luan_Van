@@ -77,6 +77,7 @@ class ShopPage extends GetView<BlogsController> {
   }) {
     // Sử dụng biến `quantity` để quản lý số lượng sản phẩm
     final RxInt quantity = 1.obs;
+    final RxBool isChecked = false.obs; // Biến để theo dõi trạng thái checkmark
 
     return Container(
       width: double.infinity,
@@ -98,15 +99,25 @@ class ShopPage extends GetView<BlogsController> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Icon(
-                  CupertinoIcons.checkmark_alt_circle,
-                  size: 20,
+              children: [
+                // Icon checkmark_alt_circle, đổi màu khi nhấn
+                Obx(() => IconButton(
+                  icon: Icon(
+                    CupertinoIcons.checkmark_alt_circle,
+                    size: 20,
+                    color: isChecked.value ? Colors.green : Colors.black, // Màu thay đổi khi chọn
+                  ),
+                  onPressed: () {
+                    isChecked.value = !isChecked.value; // Đổi trạng thái khi nhấn
+                  },
+                )),
+                IconButton(
+                  icon: const Icon(CupertinoIcons.xmark, size: 20),
+                  onPressed: () {
+                    // Hành động xóa sản phẩm
+                    // Ví dụ: Gọi một hàm để xóa sản phẩm khỏi danh sách
+                  },
                 ),
-                Icon(
-                  CupertinoIcons.xmark,
-                  size: 20,
-                )
               ],
             ),
             Row(
@@ -120,9 +131,7 @@ class ShopPage extends GetView<BlogsController> {
                   ),
                   child: Image.network(ImageAsset),
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
+                const SizedBox(width: 20),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,52 +142,50 @@ class ShopPage extends GetView<BlogsController> {
                         color: AppColors.nameProductColors,
                         maxLines: 2,
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
+                      const SizedBox(height: 5),
                       TextWidget(
                         text: '$price VND',
                         color: AppColors.cartPrice,
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       // Thêm Row để hiện số lượng sản phẩm
-                      Obx(
-                            () => Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                // Giảm số lượng nhưng không cho phép nhỏ hơn 1
-                                if (quantity.value > 1) {
-                                  quantity.value--;
-                                }
-                              },
-                              child: Icon(CupertinoIcons.minus_circle,
-                                  color: Colors.red),
+                      Obx(() => Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              // Giảm số lượng nhưng không cho phép nhỏ hơn 1
+                              if (quantity.value > 1) {
+                                quantity.value--;
+                              }
+                            },
+                            child: const Icon(
+                              CupertinoIcons.minus_circle,
+                              color: Colors.red,
                             ),
-                            SizedBox(width: 15,),
-                            Text(
-                              '${quantity.value}', // Hiển thị số lượng hiện tại
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.nameProductColors,
-                              ),
+                          ),
+                          const SizedBox(width: 15),
+                          Text(
+                            '${quantity.value}', // Hiển thị số lượng hiện tại
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.nameProductColors,
                             ),
-                            SizedBox(width: 15,),
-                            InkWell(
-                              onTap: () {
-                                // Tăng số lượng
-                                quantity.value++;
-                              },
-                              child: Icon(CupertinoIcons.add_circled,
-                                  color: Colors.green),
+                          ),
+                          const SizedBox(width: 15),
+                          InkWell(
+                            onTap: () {
+                              // Tăng số lượng
+                              quantity.value++;
+                            },
+                            child: const Icon(
+                              CupertinoIcons.add_circled,
+                              color: Colors.green,
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        ],
+                      )),
                     ],
                   ),
                 ),

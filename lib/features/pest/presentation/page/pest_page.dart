@@ -58,7 +58,7 @@ class PestPage extends GetView<PestPage> {
               },
               child: _vegetableItem(
                   ImageNetwork: 'https://i.pinimg.com/736x/f9/ad/7d/f9ad7dea9c8d56c81e0fc4fee7ed9c17.jpg',
-                  title: 'Bọ ngựa',
+                  title: 'Ong bầu',
                   scientificName: 'Solanum lycopersicum'
               ),
             ),
@@ -67,42 +67,6 @@ class PestPage extends GetView<PestPage> {
                 ImageNetwork: 'https://i.pinimg.com/564x/e7/6c/1a/e76c1a6701a4788b11d2bcd0fd82a3a3.jpg',
                 title: 'Ốc sên',
                 scientificName: 'Psidium guayava'
-            ),
-            SizedBox(height: 10,),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/736x/df/84/ed/df84ed1d8ea572b14483d57deb1f00cc.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            SizedBox(height: 10,),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/736x/1c/e7/ca/1ce7ca9e6816d1b2a1164b103574e667.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            SizedBox(height: 10,),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/736x/3b/8f/9f/3b8f9fbb1afa9a42c2a0d1fe18a16110.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            SizedBox(height: 10,),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/736x/ae/92/b3/ae92b3f65f3fa8dc9bd5ed30d9adfdfb.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            SizedBox(height: 10,),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/564x/d1/72/96/d1729629b7e5c6d652c1c82f100013c7.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
-            ),
-            SizedBox(height: 10,),
-            _vegetableItem(
-                ImageNetwork: 'https://i.pinimg.com/736x/32/6d/d3/326dd3da7f3a7a6d9da2742dd8bf789b.jpg',
-                title: 'Cam sành',
-                scientificName: 'Rutaceae'
             ),
             SizedBox(height: 10,),
 

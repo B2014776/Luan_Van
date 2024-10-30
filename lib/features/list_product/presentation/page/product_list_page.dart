@@ -1,21 +1,18 @@
-import 'package:agri_shop/core/api/model/product_model.dart';
-import 'package:agri_shop/core/configs/app_images.dart';
-import 'package:agri_shop/core/configs/themes/app_colors.dart';
 import 'package:agri_shop/core/ui/text_input/widgets/text/text_widget.dart';
 import 'package:agri_shop/features/list_product/presentation/controller/product_list_controller.dart';
+import 'package:agri_shop/features/list_product/product_detail/productDetail_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProductListPage extends GetView<ProductListController> {
-  const ProductListPage({super.key});
+class ProductListPage extends StatelessWidget {
+  final ProductListController controller = Get.put(ProductListController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          // Banner image at the top
           Container(
             width: Get.width,
             height: Get.height * 0.25,
@@ -26,186 +23,185 @@ class ProductListPage extends GetView<ProductListController> {
               ),
             ),
           ),
-          SizedBox(height: 15),
-
-          // Categories list
-          const _categoriesList(),
-
-          // Product grid
-          Expanded(
-            child: Obx(() {
-              if (controller.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
-              } else {
-                return _buildProductGrid();
-              }
-            }),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Function to get the main image for the product
-  ImageProduct getMainImage(List<ImageProduct> listImage) {
-    return listImage.firstWhere(
-          (image) => image.type == 'main',
-      orElse: () => listImage.first, // Default to the first image if no main image
-    );
-  }
-
-  // Build product grid view
-  Widget _buildProductGrid() {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.75,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
-      ),
-      itemCount: controller.productList.length,
-      itemBuilder: (context, index) {
-        var product = controller.productList[index];
-        var mainImage = getMainImage(product.images); // Get the main image
-
-        return Container(
-          decoration: BoxDecoration(
-            color: AppColors.listproduct,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withOpacity(.07),
-                blurRadius: 2,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              // Display product image
-              Container(
-                width: double.infinity,
-                color: Colors.white,
-                child: Center(
-                  child: Container(
-                    width: 90,
-                    height: 135,
-                    decoration: BoxDecoration(
-                      color: AppColors.grey,
-                      borderRadius: BorderRadius.circular(3),
-                      image: DecorationImage(
-                        image: NetworkImage(mainImage.imageUrl),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+          SizedBox(height: 10),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    controller.filterProductsByType('Tất cả sản phẩm'); // Gọi phương thức lọc
+                  },
+                  child: _buildCategoryContainer(
+                    text: 'Tất cả sản phẩm',
+                    color: Colors.blueGrey,
                   ),
                 ),
-              ),
-              SizedBox(height: 8),
-
-              // Product name
-              TextWidget(
-                text: product.name,
-                wordLimit: 4,
-                fontWeight: FontWeight.w500,
-                size: 14,
-              ),
-
-              // Product price
-              TextWidget(
-                text: '${product.price} VND',
-                fontWeight: FontWeight.w600,
-                size: 15,
-              ),
-              SizedBox(height: 5),
-
-              // Category name or product type
-              Padding(
-                padding: EdgeInsets.all(5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: AppColors.containerCategories,
-                      ),
-                      child: TextWidget(
-                        text: 'Category name', // Replace with actual category data if available
-                        color: AppColors.containerCategoriesText,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Icon(CupertinoIcons.bag_badge_plus, color: Colors.black87),
-                  ],
+                SizedBox(width: 8),
+                InkWell(
+                  onTap: () {
+                    controller.filterProductsByType('Nông dược'); // Gọi phương thức lọc
+                  },
+                  child: _buildCategoryContainer(
+                    text: 'Nông dược',
+                    color: Colors.orangeAccent,
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(width: 8),
+                InkWell(
+                  onTap: () {
+                    controller.filterProductsByType('Hữu cơ sinh học'); // Gọi phương thức lọc
+                  },
+                  child: _buildCategoryContainer(
+                    text: 'Hữu cơ sinh học',
+                    color: Colors.pinkAccent,
+                  ),
+                ),
+                SizedBox(width: 8),
+                InkWell(
+                  onTap: () {
+                    controller.filterProductsByType('Phân bón'); // Gọi phương thức lọc
+                  },
+                  child: _buildCategoryContainer(
+                    text: 'Phân bón',
+                    color: Colors.lightGreen,
+                  ),
+                ),
+                SizedBox(width: 8),
+              ],
+            ),
           ),
-        );
-      },
-    );
-  }
-}
+          Expanded(
+            child: SingleChildScrollView(
+              child: Obx(() {
+                if (controller.isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
+                // Lọc sản phẩm theo selectedProductType
+                final filteredProducts = controller.filteredProducts;
 
-// Categories List Widget
-class _categoriesList extends StatelessWidget {
-  const _categoriesList({super.key});
+                return GridView.builder(
+                  physics: NeverScrollableScrollPhysics(), // Ngăn chặn cuộn trong GridView
+                  shrinkWrap: true, // Cho phép GridView sử dụng chiều cao phù hợp
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // Số cột trong grid
+                    childAspectRatio: 0.8, // Tỉ lệ khung hình của mỗi ô
+                    crossAxisSpacing: 16, // Khoảng cách giữa các cột
+                    mainAxisSpacing: 16, // Khoảng cách giữa các hàng
+                  ),
+                  itemCount: filteredProducts.length,
+                  itemBuilder: (context, index) {
+                    final product = filteredProducts[index];
+                    final mainImage = product.images
+                        .firstWhere((image) => image.type == 'main')
+                        .image;
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          _buildCategories(AppImages.tatca, 'Tất cả'),
-          SizedBox(width: 20),
-          _buildCategories(AppImages.nongduoc, 'Nông dược'),
-          SizedBox(width: 20),
-          _buildCategories(AppImages.phanbon, 'Phân bón'),
-          SizedBox(width: 20),
-          _buildCategories(AppImages.thuoctrusau, 'Thuốc trừ sâu'),
-          SizedBox(width: 20),
-          _buildCategories(AppImages.hatgiong, 'Hạt giống'),
+                    return GestureDetector(
+                      onTap: () {
+                        Get.to(() => ProductDetailPage(product: product));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8),
+                              ),
+                              child: Image.network(
+                                mainImage,
+                                fit: BoxFit.cover,
+                                height: 100,
+                                width: 60,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    text: product.name,
+                                    fontWeight: FontWeight.w500,
+                                    size: 12,
+                                    wordLimit: 5,
+                                  ),
+                                  SizedBox(height: 4),
+                                  TextWidget(
+                                    text: '${product.price} VNĐ',
+                                    size: 15,
+                                    color: Colors.grey,
+                                  ),
+                                  SizedBox(height: 4),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.lightGreen.withOpacity(0.7),
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        child: TextWidget(
+                                          text: "${product.productType}",
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Icon(CupertinoIcons.cart_badge_plus, size: 25)
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  // Build each category item
-  Container _buildCategories(String ImageString, String name) {
+  // Hàm tiện ích để xây dựng container danh mục
+  Widget _buildCategoryContainer({required String text, required Color color}) {
     return Container(
-      width: 150,
-      padding: const EdgeInsets.all(5),
-      margin: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.fromLTRB(5, 9, 5, 5),
+      height: 40,
       decoration: BoxDecoration(
-        color: AppColors.categories,
-        borderRadius: BorderRadius.circular(2),
+        borderRadius: BorderRadius.circular(5),
+        color: color.withOpacity(0.2), // Màu với độ trong suốt
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            spreadRadius: 2,
-            blurRadius: 6,
-            offset: Offset(0, 0),
+            color: Colors.black26, // Màu bóng
+            offset: Offset(2, 2), // Vị trí bóng
+            blurRadius: 7, // Độ mờ của bóng
           ),
         ],
       ),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(ImageString, height: 25, width: 25),
-            SizedBox(width: 8),
-            TextWidget(
-              text: name,
-              size: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ],
-        ),
+      alignment: Alignment.center,
+      child: TextWidget(
+        text: text,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

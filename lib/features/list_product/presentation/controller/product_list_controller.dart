@@ -1,11 +1,12 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:agri_shop/core/api/model/product_model.dart';
 import 'package:get/get.dart';
-import '../../../../core/api/model/product_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ProductListController extends GetxController {
+  var products = <ProductModel>[].obs;
+  var filteredProducts = <ProductModel>[].obs; // Danh sách sản phẩm sau khi lọc
   var isLoading = true.obs;
-  var productList = <Product>[].obs;
 
   @override
   void onInit() {
@@ -14,33 +15,38 @@ class ProductListController extends GetxController {
   }
 
   Future<void> fetchProducts() async {
+    isLoading.value = true;
     try {
-      isLoading(true);
-      var response = await http.get(
-        Uri.parse('https://api-luan-v1.onrender.com/api/v1/products/'),
-        headers: {
-
-          'Content-Type': 'application/json',
-        },
-      );
+      final response = await http.get(Uri.parse('http://api-luan-v1.onrender.com/api/v1/products/'));
 
       if (response.statusCode == 200) {
-        var jsonResponse = jsonDecode(response.body) as List; // Thay đổi đây thành List<dynamic>
+        final jsonResponse = json.decode(response.body);
 
-
-        // Đảm bảo ánh xạ từng phần tử trong danh sách jsonResponse
-        productList.value = jsonResponse.map((json) => Product.fromJson(json)).toList();
-        print("âsascascas");
-
+        // Lấy danh sách sản phẩm từ thuộc tính 'results'
+        if (jsonResponse['results'] is List) {
+          List<dynamic> results = jsonResponse['results'];
+          products.value = results.map<ProductModel>((product) => ProductModel.fromJson(product)).toList();
+          filteredProducts.value = products; // Hiển thị tất cả sản phẩm ban đầu
+        } else {
+          Get.snackbar('Error', 'Invalid response format');
+        }
       } else {
         Get.snackbar('Error', 'Failed to load products');
       }
     } catch (e) {
-      // Xử lý ngoại lệ nếu cần
-      Get.snackbar('Error', 'Failed to load products: $e');
-      print(e.toString());
+      Get.snackbar('Error', 'An error occurred: $e');
     } finally {
-      isLoading(false);
+      isLoading.value = false;
+    }
+  }
+
+  // Phương thức để lọc sản phẩm theo loại sản phẩm
+  void filterProductsByType(String productType) {
+    if (productType == 'Tất cả sản phẩm') {
+      filteredProducts.value = products;
+    } else {
+      filteredProducts.value = products.where((product) => product.productType == productType).toList();
     }
   }
 }
+

@@ -103,11 +103,11 @@ class Pages{
       page: () => PestDetailPage(),
       binding: PestDetailBinding(),
     ),
-    GetPage(
-      name: Routes.product,
-      page: () => ProductPage(),
-      binding: Productbinding(),
-    ),
+    // GetPage(
+    //   name: Routes.product,
+    //   page: () => ProductPage(product: product,),
+    //   binding: Productbinding(),
+    // ),
     GetPage(
       name: Routes.listProduct,
       page: () => ProductListPage(),

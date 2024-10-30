@@ -54,6 +54,7 @@ class UserData {
       }
       return Result.error(ApiError.badRequest);
     }catch (e){
+      print(e);
       return Result.error(ApiError.badRequest);
     }
   }

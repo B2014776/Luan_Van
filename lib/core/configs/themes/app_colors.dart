@@ -68,7 +68,7 @@ class AppColors {
   static const minusIconColors = Color(0xFFAAD7BA);
 
   //profile
-  static const containerProfileColors = Color(0xFF8Eb69b);
+  static const containerProfileColors = Color(0xffa6c9c2);
 
   //List product
   static const categories = Color(0xFFf5f5f5);
