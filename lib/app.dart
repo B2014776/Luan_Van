@@ -1,7 +1,6 @@
 import 'package:agri_shop/app_binding.dart';
 import 'package:agri_shop/core/configs/themes/themes.dart';
 import 'package:agri_shop/core/routers/pages.dart';
-import 'package:agri_shop/core/routers/routes.dart';
 import 'package:agri_shop/core/utils/behavior.dart';
 import 'package:agri_shop/lang/translation_service.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      // initialRoute: Pages.initial,
-      initialRoute: Routes.main,
+      initialRoute: Pages.initial,
+      // initialRoute: Routes.main,
       // initialRoute: Routes.product,
       scrollBehavior: MyBehavior(),
       getPages: Pages.routes,

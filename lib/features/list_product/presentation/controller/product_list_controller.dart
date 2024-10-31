@@ -1,7 +1,8 @@
-import 'package:agri_shop/core/api/model/product_model.dart';
+import 'dart:convert';
+
+import 'package:agri_shop/core/model/product_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class ProductListController extends GetxController {
   var products = <ProductModel>[].obs;
