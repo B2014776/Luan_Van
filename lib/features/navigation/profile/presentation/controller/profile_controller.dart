@@ -19,9 +19,7 @@ class ProfileController extends GetxController{
     super.onInit();
     isLoading.value=true;
     final token  =await prefs.get(PrefsConstants.token);
-    if(token!=null){
-      profileValue = JwtDecoder.decode(token);
-    }
+    profileValue = JwtDecoder.decode(token);
     isLoading.value=false;
   }
 
