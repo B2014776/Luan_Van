@@ -30,15 +30,15 @@ class CustomTextField extends StatelessWidget {
         filled: true,
         fillColor: AppColors.whiteField,  // Màu nền có độ mờ
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15.0),  // Bo tròn các góc
+          borderRadius: BorderRadius.circular(10),  // Bo tròn các góc
           borderSide: BorderSide.none,  // Không có viền
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15.0),  // Bo tròn các góc
+          borderRadius: BorderRadius.circular(10),  // Bo tròn các góc
           borderSide: BorderSide.none,  // Không có viền khi ô không được chọn
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15.0),  // Bo tròn các góc khi ô được chọn
+          borderRadius: BorderRadius.circular(10),  // Bo tròn các góc khi ô được chọn
           borderSide: BorderSide.none,  // Không có viền khi ô được chọn
         ),
         hintText: hintText,

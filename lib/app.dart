@@ -13,8 +13,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Pages.initial,
-      // initialRoute: Routes.main,
+      // initialRoute: Pages.initial,
+      initialRoute: Routes.main,
       // initialRoute: Routes.product,
       scrollBehavior: MyBehavior(),
       getPages: Pages.routes,
